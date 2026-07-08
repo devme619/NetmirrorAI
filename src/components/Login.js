@@ -21,15 +21,16 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="relative h-screen w-full">
       <Header />
       <div className="absolute h-full w-full">
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/2f42605e-e786-4a06-8612-ebc67c55ba6c/web/IN-en-20260629-TRIFECTA-perspective_76b17e8c-cff9-4c65-9938-08ca5029be6b_large.jpg"
           alt="bg"
-          className="h-full w-full"
+          className="absolute inset-0 h-full w-full object-cover"
         ></img>
       </div>
+      <div className="absolute inset-0 bg-black/60"></div>
       <form
         onSubmit={(e) => e.preventDefault()}
         className="absolute w-3/12 p-8 my-28 mx-auto right-0 left-0 rounded-lg bg-opacity-80 bg-black text-white"
