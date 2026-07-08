@@ -2,6 +2,7 @@
 - Configured tailwind css
 - Header
 - Login Form
+- Sign up form
 
 # Features
 

@@ -1,6 +1,11 @@
+import { useState } from "react";
 import Header from "./Header";
 
 const Login = () => {
+  const [isSignInform, setIsSignInForm] = useState(true);
+  const toggleSignInForm = () => {
+    setIsSignInForm(!isSignInform);
+  };
   return (
     <div>
       <Header />
@@ -11,19 +16,36 @@ const Login = () => {
           className="h-full w-full"
         ></img>
       </div>
-      <form className="absolute w-1/4 my-36 mx-auto right-0 left-0 p-12 bg-black text-white">
-        <h1 className="font-bold text-3xl py-4">Sign In</h1>
+      <form className="absolute w-3/12 p-8 my-28 mx-auto right-0 left-0 rounded-lg bg-opacity-80 bg-black text-white">
+        <h1 className="py-4 font-bold text-3xl ">
+          {isSignInform ? "Sign In" : "Sign Up"}
+        </h1>
+        {!isSignInform && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full p-2 my-4 bg-gray-700"
+          />
+        )}
         <input
           type="text"
           placeholder="Email Address"
-          className="w-full p-2 m-2"
+          className="w-full p-2 my-4 bg-gray-700"
         />
+
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 m-2"
+          className="w-full p-2 my-4 bg-gray-700"
         />
-        <button className="w-full p-2 mx-2 my-4 bg-red-700">Sign In</button>
+        <button className="w-full p-4 my-4 bg-red-700 rounded-lg">
+          {isSignInform ? "Sign In" : "Sign Up"}
+        </button>
+        <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
+          {isSignInform
+            ? "New to Netmirror? Sign Up Now"
+            : "Already Registered? Sign In Now"}
+        </p>
       </form>
     </div>
   );
