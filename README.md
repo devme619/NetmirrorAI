@@ -18,6 +18,14 @@
 - added constant file
 - registered for TMDB API
 - get data from TMDB now playing movies
+- custom hook for now playing movies
+- create movieSlice
+- updated store with movie data
+- planning for main container and secondary container
+- fetch data for trailer video
+- update store with trailer video data
+- embeded the youtube video and make it autoplay and mute
+- added tailwind css to components
 
 # Features
 
