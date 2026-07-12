@@ -80,7 +80,7 @@ const Login = () => {
   };
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative h-full w-full">
       <Header />
       <div className="absolute h-full w-full">
         <img
