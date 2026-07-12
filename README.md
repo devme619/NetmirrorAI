@@ -31,6 +31,9 @@
 - added TMDB CDN url
 - added tailwind css to browse page
 - created custom hook for popular movies
+- GPT search page
+- GPT search bar
+- Multilingual Feature
 
 # Features
 

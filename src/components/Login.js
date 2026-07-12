@@ -9,7 +9,7 @@ import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInform, setIsSignInForm] = useState(true);
@@ -84,7 +84,7 @@ const Login = () => {
       <Header />
       <div className="absolute h-full w-full">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/2f42605e-e786-4a06-8612-ebc67c55ba6c/web/IN-en-20260629-TRIFECTA-perspective_76b17e8c-cff9-4c65-9938-08ca5029be6b_large.jpg"
+          src={BG_URL}
           alt="bg"
           className="absolute inset-0 h-full w-full object-cover"
         ></img>
