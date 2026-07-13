@@ -53,13 +53,13 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute flex flex-col md:flex-row justify-between px-2 py-2 w-full bg-gradient-to-b from-black z-30">
-      <img src={LOGO} alt="logo" className="w-12 h-12 mx-auto md:mx-0"></img>
+    <div className="relative z-30 flex flex-col gap-3 bg-gradient-to-b from-black px-3 py-3 md:flex-row md:items-center md:justify-between md:px-4 lg:px-6">
+      <img src={LOGO} alt="logo" className="mx-auto h-12 w-12 md:mx-0"></img>
       {user && (
-        <div className="flex p-2">
+        <div className="flex flex-wrap items-center justify-center gap-2 px-1 md:justify-end md:gap-3">
           {showGptSearch && (
             <select
-              className="p-2 bg-gray-900 text-white"
+              className="w-full rounded-md border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white md:w-auto"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES?.map((lang) => (
@@ -70,19 +70,24 @@ const Header = () => {
             </select>
           )}
           <button
-            className="py-2 px-4 mx-4 my-2 bg-purple-500 rounded-lg"
+            className="w-auto rounded-lg bg-purple-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-purple-700"
             onClick={handleGptSearch}
           >
             {showGptSearch ? "Home Page" : "GPTSearch"}
           </button>
-          <img
-            src={user?.photoURL || USER_AVATAR}
-            alt="userIcon"
-            className="w-12 h-12"
-          ></img>
-          <button className="font-bold text-white" onClick={handleSignOut}>
-            (Sign Out)
-          </button>
+          <div className="flex items-center gap-2">
+            <img
+              src={user?.photoURL || USER_AVATAR}
+              alt="userIcon"
+              className="h-10 w-10 rounded-full object-cover"
+            ></img>
+            <button
+              className="text-sm font-bold text-white"
+              onClick={handleSignOut}
+            >
+              (Sign Out)
+            </button>
+          </div>
         </div>
       )}
     </div>
