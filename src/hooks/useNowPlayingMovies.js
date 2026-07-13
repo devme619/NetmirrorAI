@@ -10,18 +10,35 @@ const useNowPlayingMovies = () => {
     (store) => store.movies.addNowPlayingMovies,
   );
 
-  const getNowPlayingMovies = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?page=1",
-      API_OPTIONS,
-    );
-    const json = await data.json();
-    dispatch(addNowPlayingMovies(json?.results));
-  };
-
   useEffect(() => {
-    !nowPlayingMovies && getNowPlayingMovies();
-  }, []);
+    if (nowPlayingMovies) return;
+
+    const controller = new AbortController();
+
+    const getNowPlayingMovies = async () => {
+      try {
+        const response = await fetch(
+          "https://api.themoviedb.org/3/movie/now_playing?page=1",
+          { ...API_OPTIONS, signal: controller.signal },
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch now playing movies");
+        }
+
+        const json = await response.json();
+        dispatch(addNowPlayingMovies(json?.results || []));
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          dispatch(addNowPlayingMovies([]));
+        }
+      }
+    };
+
+    getNowPlayingMovies();
+
+    return () => controller.abort();
+  }, [dispatch, nowPlayingMovies]);
 };
 
 export default useNowPlayingMovies;

@@ -5,24 +5,42 @@ import { useEffect } from "react";
 
 const useMovieTrailer = (movieId) => {
   const dispatch = useDispatch();
-  const trailerVideo = useSelector((store) => store.movies.addTrailerVideo);
-
-  const getMovieVideo = async (movieId) => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
-      API_OPTIONS,
-    );
-    const json = await data?.json();
-    const filterData = json?.results?.filter(
-      (video) => video.type === "Trailer",
-    );
-    const trailer = filterData?.length ? filterData[0] : json?.results[0];
-    dispatch(addTrailerVideo(trailer));
-  };
+  const trailerVideo = useSelector((store) => store.movies.trailerVideo);
 
   useEffect(() => {
-    !trailerVideo && getMovieVideo(movieId);
-  }, []);
+    if (!movieId) return;
+    if (trailerVideo) return;
+
+    const controller = new AbortController();
+
+    const getMovieVideo = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+          { ...API_OPTIONS, signal: controller.signal },
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch movie trailer");
+        }
+
+        const json = await response.json();
+        const filterData = json?.results?.filter(
+          (video) => video.type === "Trailer",
+        );
+        const trailer = filterData?.length ? filterData[0] : json?.results?.[0];
+        dispatch(addTrailerVideo(trailer || null));
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          dispatch(addTrailerVideo(null));
+        }
+      }
+    };
+
+    getMovieVideo();
+
+    return () => controller.abort();
+  }, [dispatch, movieId, trailerVideo]);
 };
 
 export default useMovieTrailer;
