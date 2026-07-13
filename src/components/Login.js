@@ -24,58 +24,50 @@ const Login = () => {
     setIsSignInForm(!isSignInform);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     const message = checkValidData(
       email?.current?.value,
       password?.current?.value,
     );
+
     setErrorMessage(message);
-    if (!message) {
+
+    if (message) return;
+
+    try {
       if (!isSignInform) {
-        createUserWithEmailAndPassword(
+        const userCredential = await createUserWithEmailAndPassword(
           auth,
           email?.current?.value,
           password?.current?.value,
-        )
-          .then((userCredential) => {
-            const user = userCredential.user;
-            updateProfile(user, {
-              displayName: name.current.value,
-              photoURL: { USER_AVATAR },
-            })
-              .then(() => {
-                const { uid, email, displayName, photoURL } = auth?.currentUser;
-                dispatch(
-                  addUser({
-                    uid: uid,
-                    email: email,
-                    displayName: displayName,
-                    photoURL: photoURL,
-                  }),
-                );
-              })
-              .catch((error) => {
-                setErrorMessage(error?.message);
-              });
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setErrorMessage(errorCode + "-" + errorMessage);
-          });
+        );
+
+        const user = userCredential.user;
+        await updateProfile(user, {
+          displayName: name?.current?.value || "User",
+          photoURL: USER_AVATAR,
+        });
+
+        const { uid, email: userEmail, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid,
+            email: userEmail,
+            displayName,
+            photoURL,
+          }),
+        );
       } else {
-        signInWithEmailAndPassword(
+        await signInWithEmailAndPassword(
           auth,
           email?.current?.value,
           password?.current?.value,
-        )
-          .then((userCredential) => {})
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setErrorMessage(errorCode + "-" + errorMessage);
-          });
+        );
       }
+    } catch (error) {
+      const errorCode = error?.code || "auth/error";
+      const errorMessage = error?.message || "Authentication failed";
+      setErrorMessage(`${errorCode} - ${errorMessage}`);
     }
   };
 

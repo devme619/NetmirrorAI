@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import usePopularMovies from "../hooks/usePopularMovies";
@@ -11,17 +12,23 @@ const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
 
+  const content = useMemo(() => {
+    if (showGptSearch) {
+      return <GptSearch />;
+    }
+
+    return (
+      <>
+        <MainContainer />
+        <SecondaryContainer />
+      </>
+    );
+  }, [showGptSearch]);
+
   return (
     <div>
       <Header />
-      {showGptSearch ? (
-        <GptSearch />
-      ) : (
-        <>
-          <MainContainer />
-          <SecondaryContainer />
-        </>
-      )}
+      {content}
     </div>
   );
 };

@@ -20,10 +20,10 @@ const Header = () => {
         const { uid, email, displayName, photoURL } = user;
         dispatch(
           addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
+            uid,
+            email,
+            displayName,
+            photoURL,
           }),
         );
         navigate("/browse");
@@ -32,15 +32,16 @@ const Header = () => {
         navigate("/");
       }
     });
-    return () => unsubscribe();
-  }, []);
 
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {
-        navigate("/error");
-      });
+    return () => unsubscribe();
+  }, [dispatch, navigate]);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch {
+      navigate("/error");
+    }
   };
 
   const handleGptSearch = () => {
