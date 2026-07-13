@@ -34,6 +34,13 @@
 - GPT search page
 - GPT search bar
 - Multilingual Feature
+- Integrate Gemini API
+- Gemini search API call
+- fetched getMoviesSuggestions from TMDB
+- created gptSlice
+- reused Movie list component to make suggestion container
+- Memoization
+- Made site responsive
 
 # Features
 
