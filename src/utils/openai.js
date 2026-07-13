@@ -1,7 +1,11 @@
-import OpenAI from "openai";
+// import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_KEY,
-});
+// const ai = new OpenAI({
+//   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+//   dangerouslyAllowBrowser: true,
+// });
 
-export default openai;
+const ai = new GoogleGenAI({ apiKey: process.env.REACT_APP_GEMINI_API_KEY });
+
+export default ai;
