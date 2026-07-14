@@ -72,22 +72,18 @@ const Login = () => {
   };
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative inset-0  min-h-screen w-full">
       <Header />
-      <div className="absolute h-full w-full">
-        <img
-          src={BG_URL}
-          alt="bg"
-          className="absolute inset-0 h-full w-full object-cover"
-        ></img>
+      <div className="absolute inset-0 ">
+        <img src={BG_URL} alt="bg" className="h-full w-full object-cover"></img>
       </div>
       <div className="absolute inset-0 bg-black/60"></div>
-      <div className="relative z-10 flex h-full items-center justify-center">
+      <div className="relative z-10 flex items-center justify-center">
         <form
           onSubmit={(e) => e.preventDefault()}
           className="w-11/12 p-8 max-w-md rounded-lg bg-black bg-opacity-60  text-white"
         >
-          <h1 className="py-4 font-bold text-3xl ">
+          <h1 className=" py-2 md:py-4 font-bold md:text-3xl text-2xl">
             {isSignInform ? "Sign In" : "Sign Up"}
           </h1>
           {!isSignInform && (
@@ -95,14 +91,14 @@ const Login = () => {
               ref={name}
               type="text"
               placeholder="Full Name"
-              className="w-full p-2 my-4 bg-gray-700"
+              className="w-full p-2 md:my-4 my-2 bg-gray-700"
             />
           )}
           <input
             ref={email}
             type="text"
             placeholder="Email Address"
-            className="w-full p-2 my-4 bg-gray-700"
+            className="w-full p-2 md:my-4 my-2 bg-gray-700"
           />
 
           <input
@@ -113,7 +109,7 @@ const Login = () => {
           />
           <p className="p-2 font-bold text-red-500">{errorMessage}</p>
           <button
-            className="w-full p-4 my-4 bg-red-700 rounded-lg"
+            className="w-full p-4 md:my-4 my-2 bg-red-700 rounded-lg"
             onClick={handleButtonClick}
           >
             {isSignInform ? "Sign In" : "Sign Up"}
