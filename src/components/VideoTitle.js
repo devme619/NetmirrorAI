@@ -3,7 +3,7 @@ const VideoTitle = ({ title, overview }) => {
   const safeOverview = overview || "Discover an exciting movie experience.";
 
   return (
-    <div className="relative z-10 flex min-h-[60vh] flex-col justify-center bg-gradient-to-r from-black px-4 py-24 text-white sm:px-6 md:min-h-[70vh] md:px-10 lg:min-h-[80vh] lg:px-24">
+    <div className="relative z-10 -mt-[30%] md:-mt-0 flex min-h-[60vh] flex-col justify-center bg-gradient-to-r from-black px-4 py-24 text-white sm:px-6 md:min-h-[70vh] md:px-10 lg:min-h-[80vh] lg:px-24">
       <h1 className="max-w-2xl text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl">
         {safeTitle}
       </h1>

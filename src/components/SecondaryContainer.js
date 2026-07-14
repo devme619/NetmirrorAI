@@ -12,7 +12,7 @@ const SecondaryContainer = () => {
   ];
 
   return (
-    <div className="bg-black">
+    <div className="bg-black mt-[50%] md:mt-[35%]">
       <div className="mt-0 md:-mt-32 relative z-20 pl-4">
         {movieSections.map((section) => (
           <MovieList
